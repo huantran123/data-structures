@@ -27,5 +27,3 @@ var queueMethods = {
     return Object.keys(this.storage).length;
   }
 };
-
-

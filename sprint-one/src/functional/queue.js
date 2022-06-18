@@ -11,6 +11,7 @@ var Queue = function() {
     storage[storageKeysList.length] = value;
   };
 
+
   someInstance.dequeue = function() {
     // An array to store all keys of the storage [0, 1, 2, ...]
     var storageKeysList = Object.keys(storage);
@@ -39,3 +40,7 @@ var Queue = function() {
 
   return someInstance;
 };
+
+
+
+

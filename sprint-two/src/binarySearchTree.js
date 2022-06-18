@@ -1,73 +1,102 @@
 var BinarySearchTree = function(value) {
-  var bst = Object.create(BinarySearchTree.prototype);
-  bst.value = value;
-  bst.left = null;
-  bst.right = null;
-  return bst;
+  var newBST = Object.create(binarySearchTreeMethods);
+  newBST._value = value;
+  newBST._left = null;
+  newBST._right = null;
+  return newBST;
 };
 
-BinarySearchTree.prototype.insert = function(val) {
-  var node = BinarySearchTree(val);
-  var insertNode = function(currentNode) {
-    if (val < currentNode.value) {
-      if (currentNode.left === null) {
-        currentNode.left = node;
+var binarySearchTreeMethods = {};
+
+binarySearchTreeMethods._insert = function(value) {
+  var node = BinarySearchTree(value);
+  var insertFunction = function(current) {
+    if (value < current._value) {
+      if (current._left === null) {
+        current._left = node;
       } else {
-        insertNode(currentNode.left);
+        insertFunction(current._left);
       }
-    } else if (val > currentNode.value) {
-      if (currentNode.right === null) {
-        currentNode.right = node;
+    } else if (value > current._value) {
+      if (current._right === null) {
+        current._right = node;
       } else {
-        insertNode(currentNode.right);
+        insertFunction(current._right);
       }
     }
   };
-  insertNode(this);
+  insertFunction(this);
 };
 
-BinarySearchTree.prototype.contains = function(val) {
-  var currentNode = this;
-
-  if (val === currentNode.value) {
-    return true;
-  }
-
-  if (currentNode.left === null && currentNode.right === null) {
-    return false;
-  }
-
-  if (val < currentNode.value) {
-    if (currentNode.left === null) {
+binarySearchTreeMethods._contains = function(value) {
+  var containFunction = function(currentNode) {
+    if (currentNode._value === value) {
+      return true;
+    } else if (currentNode._left === null && currentNode._right === null) {
       return false;
+    } else if (currentNode._value > value) {
+      if (currentNode._left === null) {
+        return false;
+      }
+      return containFunction(currentNode._left);
+    } else if (currentNode._value < value) {
+      if (currentNode._right === null) {
+        return false;
+      }
+      return containFunction(currentNode._right);
     }
-    return currentNode.left.contains(val);
-  } else if (val > currentNode.value) {
-    if (currentNode.right === null) {
-      return false;
-    }
-    return currentNode.right.contains(val);
+  };
+  return containFunction(this);
+};
+
+binarySearchTreeMethods._depthFirstLog = function(cb) {
+  var current = this;
+  cb(this._value);
+
+  if (current._left !== null ) {
+    current._left._depthFirstLog(cb);
+  }
+
+  if (current._right !== null) {
+    current._right._depthFirstLog(cb);
   }
 };
 
-BinarySearchTree.prototype.depthFirstLog = function(cb) {
-  var currentNode = this;
+// binarySearchTreeMethods._breathFirstLog = function(cb) {
+//   var isFirstTime = true;
+//   var breathFirstFunc = function(current) {
+//     if (isFirstTime){
+//       cb(current._value);
+//       isFirstTime = false;
+//     }
 
-  // Execute call back on the current node's value
-  cb(this.value);
+//     if (current._left !== null) {
+//       cb(current._left._value);
+//     }
+//     if (current._right !== null) {
+//       cb(current._right._value);
+//     }
 
-  // Recursively execute callback if the current node has left branch
-  if (this.left !== null) {
-    this.left.depthFirstLog(cb);
-  }
+//     if (current._left !== null) {
+//       breathFirstFunc(current._left)
+//     }
 
-  // Recursively execute callback if the current node has right branch
-  if (this.right !== null) {
-    this.right.depthFirstLog(cb);
-  }
-};
+//     if (current._right !== null) {
+//       breathFirstFunc(current._right)
+//     }
+//   }
+//   breathFirstFunc(this);
+// };
 
 
+//   5
+//  2   7
+// 1 3 6  8
+
+// [5, 2, 7, 1, 3]
 /*
  * Complexity: What is the time complexity of the above functions?
+  insert O(n)
+  contains O(n)
+  depthFirstLog O(n)
  */

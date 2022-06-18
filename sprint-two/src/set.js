@@ -6,11 +6,13 @@ var Set = function() {
 
 var setPrototype = {};
 
-setPrototype.add = function(item) {
-  this._storage[item] = item;
+setPrototype._add = function(item) {
+  var _key = item;
+  var _value = item;
+  this._storage[_key] = _value;
 };
 
-setPrototype.contains = function(item) {
+setPrototype._contains = function(item) {
   if (this._storage[item] !== undefined) {
     return true;
   } else {
@@ -18,14 +20,13 @@ setPrototype.contains = function(item) {
   }
 };
 
-setPrototype.remove = function(item) {
+setPrototype._remove = function(item) {
   delete this._storage[item];
 };
 
 /*
  * Complexity: What is the time complexity of the above functions?
+  add:O(1)
+  contains: O(1)
+  remove: O(1)
  */
-
-// add: O(1)
-// contains: O(1)
-// remove: O(1)
