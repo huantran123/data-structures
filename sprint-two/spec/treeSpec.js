@@ -14,6 +14,8 @@ describe('tree', function() {
   it('should add children to the tree', function() {
     tree._addChild(5);
     expect(tree._children[0]._value).to.equal(5);
+    console.log(tree._children[0]);
+    expect(tree._children[0]._parent._value).to.equal(undefined);
   });
 
   it('should return true for a value that the tree contains', function() {
@@ -49,6 +51,29 @@ describe('tree', function() {
     tree._children[0]._children[1]._addChild(8);
     expect(tree._contains(4)).to.equal(true);
     expect(tree._contains(8)).to.equal(true);
+  });
+
+  it('should not contain children after removing from its parent', function() {
+    tree._addChild(5);
+    tree._children[0]._addChild(2);
+    tree._children[0]._addChild(7);
+    tree._children[0]._children[1]._removeFromParent();
+    expect(tree._contains(7)).to.equal(false);
+    expect(tree._children[0]._children.length).to.equal(1);
+  });
+
+  it('should traverse over the tree and apply callback', function() {
+    var array = [];
+    var callback = function(item) {
+      array.push(item);
+    };
+
+    tree._addChild(5);
+    tree._children[0]._addChild(2);
+    tree._children[0]._addChild(7);
+
+    tree._traverse(callback);
+    expect(array).to.eql([5, 2, 7]);
   });
 
 });
