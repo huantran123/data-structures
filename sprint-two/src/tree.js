@@ -63,6 +63,7 @@ treeMethods._traverse = function(callback) {
   }
   for (var i = 0; i < this._children.length; i++) {
     this._children[i]._traverse(callback);
+
   }
 };
 
@@ -71,4 +72,3 @@ treeMethods._traverse = function(callback) {
    addChild => O(1)
    contains => O(n)
 */
-

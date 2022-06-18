@@ -6,26 +6,23 @@ class Queue {
   }
 
   enqueue(value) {
-    var size = this.size();
-    this.storage[size] = value;
+    var storageKeysList = Object.keys(this.storage);
+    this.storage[storageKeysList.length] = value;
   }
 
   dequeue() {
-    var keys = Object.keys(this.storage);
-    var deleted = this.storage[keys[0]];
-    delete this.storage[keys[0]];
-
-    for (var key in this.storage) {
-      var value = this.storage[key];
-      delete this.storage[key];
-      this.storage[key - 1] = value;
+    var storageKeysList = Object.keys(this.storage);
+    var storageValuesList = Object.values(this.storage);
+    var dequeuedValue = storageValuesList[0];
+    delete this.storage[storageKeysList.length - 1];
+    storageKeysList.pop();
+    storageValuesList.shift();
+    for (var i = 0; i < storageKeysList.length; i++) {
+      this.storage[i] = storageValuesList[i];
     }
-
-    return deleted;
+    return dequeuedValue;
   }
 
   size() {
-    var entries = Object.entries(this.storage);
-    return entries.length;
+    return Object.keys(this.storage).length;
   }
-}

@@ -16,11 +16,20 @@ Graph.prototype._addNode = function(node) {
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
 Graph.prototype._contains = function(node) {
   if (this._children[node] === undefined) {
-    return false;
-  } else {
-    return true;
-  }
+  this.value = null;
+  this.children = {};
 };
+
+// Add a node to the graph, passing in the node's value.
+Graph.prototype.addNode = function(node) {
+  var newNode = new Graph();
+  newNode.value = node;
+  this.children[node] = newNode;
+};
+
+// Return a boolean value indicating if the value passed to contains is represented in the graph.
+Graph.prototype.contains = function(node) {
+  if (this.children[node] === undefined) {
 
 // Removes a node from the graph.
 Graph.prototype._removeNode = function(node) {
@@ -69,5 +78,3 @@ Graph.prototype._forEachNode = function(cb) {
   removeEdge => O(1)
   forEachNode => O(n)
  */
-
-

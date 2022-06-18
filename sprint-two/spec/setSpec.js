@@ -31,4 +31,11 @@ describe('set', function() {
     expect(set._contains('Hello world')).to.equal(true);
   });
 
+  it('should contain unique values', function() {
+    set.add('Mel Gibson');
+    set.add('Mel Gibson');
+    set.add('Danny Glover');
+    expect(Object.keys(set._storage).length).to.equal(2);
+  });
+
 });
