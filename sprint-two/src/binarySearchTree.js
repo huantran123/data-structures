@@ -53,7 +53,7 @@ binarySearchTreeMethods._depthFirstLog = function(cb) {
   var current = this;
   cb(this._value);
 
-  if (current._left !== null) {
+  if (current._left !== null ) {
     current._left._depthFirstLog(cb);
   }
 
@@ -62,7 +62,38 @@ binarySearchTreeMethods._depthFirstLog = function(cb) {
   }
 };
 
+// binarySearchTreeMethods._breathFirstLog = function(cb) {
+//   var isFirstTime = true;
+//   var breathFirstFunc = function(current) {
+//     if (isFirstTime){
+//       cb(current._value);
+//       isFirstTime = false;
+//     }
 
+//     if (current._left !== null) {
+//       cb(current._left._value);
+//     }
+//     if (current._right !== null) {
+//       cb(current._right._value);
+//     }
+
+//     if (current._left !== null) {
+//       breathFirstFunc(current._left)
+//     }
+
+//     if (current._right !== null) {
+//       breathFirstFunc(current._right)
+//     }
+//   }
+//   breathFirstFunc(this);
+// };
+
+
+//   5
+//  2   7
+// 1 3 6  8
+
+// [5, 2, 7, 1, 3]
 /*
  * Complexity: What is the time complexity of the above functions?
   insert O(n)
