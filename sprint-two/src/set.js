@@ -6,13 +6,13 @@ var Set = function() {
 
 var setPrototype = {};
 
-setPrototype.add = function(item) {
-  var key = item;
-  var value = item;
-  this._storage[key] = value;
+setPrototype._add = function(item) {
+  var _key = item;
+  var _value = item;
+  this._storage[_key] = _value;
 };
 
-setPrototype.contains = function(item) {
+setPrototype._contains = function(item) {
   if (this._storage[item] !== undefined) {
     return true;
   } else {
@@ -20,7 +20,7 @@ setPrototype.contains = function(item) {
   }
 };
 
-setPrototype.remove = function(item) {
+setPrototype._remove = function(item) {
   delete this._storage[item];
 };
 

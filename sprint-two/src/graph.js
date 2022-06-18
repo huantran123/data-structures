@@ -2,20 +2,20 @@
 
 // Instantiate a new graph
 var Graph = function() {
-  this.value = null;
-  this.children = {};
+  this._value = null;
+  this._children = {};
 };
 
 // Add a node to the graph, passing in the node's value.
-Graph.prototype.addNode = function(node) {
+Graph.prototype._addNode = function(node) {
   var newNode = new Graph();
-  this.children[node] = newNode;
-  newNode.value = node;
+  this._children[node] = newNode;
+  newNode._value = node;
 };
 
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
-Graph.prototype.contains = function(node) {
-  if (this.children[node] === undefined) {
+Graph.prototype._contains = function(node) {
+  if (this._children[node] === undefined) {
     return false;
   } else {
     return true;
@@ -23,14 +23,16 @@ Graph.prototype.contains = function(node) {
 };
 
 // Removes a node from the graph.
-Graph.prototype.removeNode = function(node) {
-  delete this.children[node];
+Graph.prototype._removeNode = function(node) {
+  delete this._children[node];
 };
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
-Graph.prototype.hasEdge = function(fromNode, toNode) {
+Graph.prototype._hasEdge = function(fromNode, toNode) {
   var isContained = false;
-  if (this.children[fromNode].children[toNode] === this.children[toNode] && this.children[toNode].children[fromNode] === this.children[fromNode]) {
+  if (this._children[fromNode] === undefined || this._children[toNode] === undefined) {
+    return false;
+  } else if (this._children[fromNode]._children[toNode] === this._children[toNode] && this._children[toNode]._children[fromNode] === this._children[fromNode]) {
     isContained = true;
   } else {
     isContained = false;
@@ -39,20 +41,20 @@ Graph.prototype.hasEdge = function(fromNode, toNode) {
 };
 
 // Connects two nodes in a graph by adding an edge between them.
-Graph.prototype.addEdge = function(fromNode, toNode) {
-  this.children[fromNode].children[toNode] = this.children[toNode];
-  this.children[toNode].children[fromNode] = this.children[fromNode];
+Graph.prototype._addEdge = function(fromNode, toNode) {
+  this._children[fromNode]._children[toNode] = this._children[toNode];
+  this._children[toNode]._children[fromNode] = this._children[fromNode];
 };
 
 // Remove an edge between any two specified (by value) nodes.
-Graph.prototype.removeEdge = function(fromNode, toNode) {
-  delete this.children[fromNode].children[toNode];
-  delete this.children[toNode].children[fromNode];
+Graph.prototype._removeEdge = function(fromNode, toNode) {
+  delete this._children[fromNode]._children[toNode];
+  delete this._children[toNode]._children[fromNode];
 };
 
 // Pass in a callback which will be executed on each node of the graph.
-Graph.prototype.forEachNode = function(cb) {
-  for (var i in this.children) {
+Graph.prototype._forEachNode = function(cb) {
+  for (var i in this._children) {
     cb(i);
   }
 };

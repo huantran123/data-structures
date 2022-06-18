@@ -1,64 +1,64 @@
 var BinarySearchTree = function(value) {
   var newBST = Object.create(binarySearchTreeMethods);
-  newBST.value = value;
-  newBST.left = null;
-  newBST.right = null;
+  newBST._value = value;
+  newBST._left = null;
+  newBST._right = null;
   return newBST;
 };
 
 var binarySearchTreeMethods = {};
 
-binarySearchTreeMethods.insert = function(value) {
+binarySearchTreeMethods._insert = function(value) {
   var node = BinarySearchTree(value);
   var insertFunction = function(current) {
-    if (value < current.value) {
-      if (current.left === null) {
-        current.left = node;
+    if (value < current._value) {
+      if (current._left === null) {
+        current._left = node;
       } else {
-        insertFunction(current.left);
+        insertFunction(current._left);
       }
-    } else if (value > current.value) {
-      if (current.right === null) {
-        current.right = node;
+    } else if (value > current._value) {
+      if (current._right === null) {
+        current._right = node;
       } else {
-        insertFunction(current.right);
+        insertFunction(current._right);
       }
     }
   };
   insertFunction(this);
 };
 
-binarySearchTreeMethods.contains = function(value) {
+binarySearchTreeMethods._contains = function(value) {
   var containFunction = function(currentNode) {
-    if (currentNode.value === value) {
+    if (currentNode._value === value) {
       return true;
-    } else if (currentNode.left === null && currentNode.right === null) {
+    } else if (currentNode._left === null && currentNode._right === null) {
       return false;
-    } else if (currentNode.value > value) {
-      if (currentNode.left === null) {
+    } else if (currentNode._value > value) {
+      if (currentNode._left === null) {
         return false;
       }
-      return containFunction(currentNode.left);
-    } else if (currentNode.value < value) {
-      if (currentNode.right === null) {
+      return containFunction(currentNode._left);
+    } else if (currentNode._value < value) {
+      if (currentNode._right === null) {
         return false;
       }
-      return containFunction(currentNode.right);
+      return containFunction(currentNode._right);
     }
   };
   return containFunction(this);
 };
 
-binarySearchTreeMethods.depthFirstLog = function(cb) {
+binarySearchTreeMethods._depthFirstLog = function(cb) {
   var current = this;
-  cb(this.value);
+  cb(this._value);
 
-  if (current.left !== null) {
-    current.left.depthFirstLog(cb);
+  if (current._left !== null) {
+    current._left._depthFirstLog(cb);
   }
 
-  if (current.right !== null) {
-    current.right.depthFirstLog(cb);
+  if (current._right !== null) {
+    current._right._depthFirstLog(cb);
   }
 };
 

@@ -36,16 +36,19 @@ define([
 
       it('reports a size of zero for a new stack', function() {
         expect(stack.size()).to.equal(0);
+        // console.log('pass')
       });
 
       it('reports a size of 2 after adding two items', function() {
         stack.push('a');
         stack.push('b');
         expect(stack.size()).to.equal(2);
+        // console.log('pass')
       });
 
       it('does not error when removing from an empty stack', function() {
         expect(function() { stack.pop(); }).not.throws();
+        // console.log('pass')
       });
 
       it('reports a size of 1 after adding two items and removing one', function() {
@@ -60,6 +63,7 @@ define([
         stack.pop();
         stack.pop();
         expect(stack.size()).to.equal(0);
+        // console.log('pass')
       });
 
       it('allows sequentially additing and removing items', function() {
